@@ -28,7 +28,17 @@ int main(int argc, char* argv[]){
             AddWords();
         }else if (menuOption == 2){
             string wordToGuess = GetAWord();
+            string userWord;
             cout << "Word to Guess is: " << wordToGuess << endl;
+            cout << "Your guess: ";
+            cin >> userWord;
+            if (userWord == wordToGuess){
+                cout << "You are a winner" << endl;
+            }else if (wordToGuess.find(userWord) != string::npos){
+                cout << "You have a partial match" << endl;
+            }else{
+                cout << "Not even a partial match" << endl;
+            }
         }
 
         menuOption = Menu();
