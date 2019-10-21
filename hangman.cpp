@@ -1,6 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
 
 using std::cout;
 using std::cin;
@@ -8,11 +11,15 @@ using std::endl;
 using std::cerr;
 using std::string;
 using std::ofstream;
+using std::ifstream;
+using std::vector;
 
 int Menu();
 void AddWords();
+string GetAWord();
 
 int main(int argc, char* argv[]){
+    srand(time(0));
     int menuOption;
     cout << "Welcome Hangman" << endl << endl;
     menuOption = Menu();
@@ -20,7 +27,8 @@ int main(int argc, char* argv[]){
         if (menuOption == 1){
             AddWords();
         }else if (menuOption == 2){
-
+            string wordToGuess = GetAWord();
+            cout << "Word to Guess is: " << wordToGuess << endl;
         }
 
         menuOption = Menu();
@@ -54,4 +62,20 @@ void AddWords(){
         out << word << endl;
     }
     out.close();
+}
+string GetAWord(){
+    ifstream in("hangman.txt");
+    int length;
+    cout << "What is the maximum length of word you want to guess: ";
+    cin >> length;
+    string word;
+    vector<string> words;
+    while (in >> word){
+        if (word.length() <= length)
+            words.push_back(word);
+    }
+    int randomPosition = rand() % words.size();
+
+
+    return words[randomPosition];
 }
