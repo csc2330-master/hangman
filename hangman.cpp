@@ -1,18 +1,27 @@
 #include <iostream>
+#include <fstream>
+#include <string>
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::cerr;
+using std::string;
+using std::ofstream;
 
 int Menu();
+void AddWords();
 
 int main(int argc, char* argv[]){
     int menuOption;
     cout << "Welcome Hangman" << endl << endl;
     menuOption = Menu();
     while (menuOption != 3){
+        if (menuOption == 1){
+            AddWords();
+        }else if (menuOption == 2){
 
+        }
 
         menuOption = Menu();
     }
@@ -33,4 +42,16 @@ int Menu(){
             cerr << "Invalid Option, please input again" << endl;
     }while (menuOption < 1 || menuOption > 3);
     return menuOption;
+}
+void AddWords(){
+    ofstream out("hangman.txt", ofstream::app);
+    string word;
+    while (true) {
+        cout << "Your word: ";
+        cin >> word;
+        if (word == "END.")
+            break;
+        out << word << endl;
+    }
+    out.close();
 }
